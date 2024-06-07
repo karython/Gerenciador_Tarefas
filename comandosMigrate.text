@@ -1,0 +1,6 @@
+** COMANDOS NO TERMINAL PARA MIGRATE **
+
+$env:FLASK_APP = "api.py"
+flask db init
+flask db migrate
+flask db upgrade
