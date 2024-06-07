@@ -1,0 +1,16 @@
+import urllib
+
+#FIXME: esse modulo é onde esta sendo feito a configuração das credenciais do banco de dados
+
+DEBUG = True
+
+USERNAME = 
+PASSWORD = urllib.parse.quote_plus()
+SERVER =
+DB = 
+
+SQLALCHEMY_DATABASE_URI = f'mysql://{USERNAME}:{PASSWORD}@{SERVER}/{DB}'
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+
+SECRET_KEY = 
