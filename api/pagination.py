@@ -1,4 +1,5 @@
 from flask import request, url_for
+import json
 
 '''
     este é o modulo de paginação, para evitar de exibir todos os registros de uma vez.
@@ -32,11 +33,19 @@ def pagination(model, schema):
         per_page=per_page,
         **request.view_args
     )
+    print(page_obj.items)
+    try:
+        
+        js = schema.dump(page_obj.items)
+        
+    except:
+       
+        print("erro")
 
     return {
         'total': page_obj.total,
         'pages': page_obj.pages,
         'next': next,
         'prev': prev,
-        'results': schema.dump(page_obj.items) #schema.dump para serializar os dados em json
+        'results': js #schema.dump para serializar os dados em json
     }

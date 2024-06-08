@@ -36,7 +36,7 @@ class TarefaList(Resource):
             titulo = request.json['titulo']
             descricao = request.json['descricao']
             data_expiracao = request.json['data_expiracao']
-            projeto = request.json['projeto']
+            projeto = request.json['projetos']
             projeto_tarefa = projeto_service.listar_projeto_id(projeto)
 
             if projeto_tarefa is None:
@@ -75,7 +75,7 @@ class TarefaDetail(Resource):
             titulo = request.json['titulo']
             descricao = request.json['descricao']
             data_expiracao = request.json['data_expiracao']
-            projeto = request.json['projeto']
+            projeto = request.json['projetos']
             projeto_tarefa = projeto_service.listar_projeto_id(projeto)
 
             if projeto_tarefa is None:

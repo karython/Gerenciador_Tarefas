@@ -1,7 +1,10 @@
 from api import ma
-from api.models import projeto_model
+from api.schemas.funcionario_schema import FuncionarioSchema
+from api.schemas.tarefa_schema import TarefaSchema
+from ..models import projeto_model
 from marshmallow import fields
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+
+
 '''
     os schemas é quem vai traduzir os dados em json
     em uma linguagem que o paython entenda, para isso
@@ -18,9 +21,15 @@ class ProjetoSchema(ma.SQLAlchemyAutoSchema):
 
         model = projeto_model.Projeto
         # informações que serão renderizadas
-        fields = ('id', 'nome', 'descricao')#adicionar tarefas e funcionarios
+        fields = ('id', 'nome', 'descricao', 'tarefas', 'funcionarios')#adicionar tarefas e funcionarios
 
 
     # colocando as restricoes dos dados
     nome = fields.String(required=True)
     descricao = fields.String(required=True)
+
+    tarefas = fields.Nested(TarefaSchema, many=True)
+    funcionarios = fields.Nested(FuncionarioSchema, many=True)
+
+   
+

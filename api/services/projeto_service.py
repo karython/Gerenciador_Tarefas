@@ -29,9 +29,11 @@ def listar_projeto():
 def editar_projeto(projeto_bd, projeto_novo):
     projeto_bd.nome = projeto_novo.nome
     projeto_bd.descricao = projeto_novo.descricao
+    projeto_bd.funcionarios = []
+    for i in projeto_novo.funcionarios:
+        funcionario = listar_funcionario_id(i)
+        projeto_bd.funcionarios.append(funcionario)
     db.session.commit()
-
-
 
 # metodo para excluir uma projeto a partir do seu ID
 def excluir_projeto(projeto):

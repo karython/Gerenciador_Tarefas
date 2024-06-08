@@ -13,4 +13,4 @@ class Funcionario(db.Model):
     cpf = db.Column(db.String(50), nullable=False)
 
     # relacionando com a tabela funcionario_projeto
-    projetos = db.relationship("Projeto", secondary='funcionario_projeto', back_populates='funcionarios')
+    projetos = db.relationship('Projeto', secondary='funcionario_projeto', back_populates='funcionarios')

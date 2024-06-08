@@ -1,10 +1,8 @@
 from flask_restful import Resource
-
 from api import api
 from ..schemas import projeto_schema
 from flask import request, make_response, jsonify
 from ..entidades import projeto
-from ..schemas.projeto_schema import ProjetoSchema
 from ..services import projeto_service
 from ..pagination import pagination
 from ..models.projeto_model import Projeto
@@ -14,15 +12,17 @@ class ProjetoList(Resource):
     # funcao que ira chamar os metodos GET dos service
     # Listar todos os projetos
     def get (self):
+        
         #projetos = projeto_service.listar_projeto()
         ps = projeto_schema.ProjetoSchema(many=True)
+        
         return pagination(Projeto, ps)
 
 
     # funcao que irar chamar os metodos POST (SET) dos service
     # criar novo projeto
     def post(self):
-        ps = ProjetoSchema()
+        ps = projeto_schema.ProjetoSchema()
         validate = ps.validate(request.json)
 
         # fazendo a validacao dos dados
