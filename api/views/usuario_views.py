@@ -8,6 +8,53 @@ from ..services import usuario_service
 
 class UsuarioList(Resource):
     def post(self):
+
+        """
+        Esta rota é responsavel por cadastrar um novo usuário
+        ---
+        parameters:
+          - in: body
+            name: Usuario
+            description: Cadastrar novo usuário
+            schema:
+              type: object
+              required:
+                - nome
+                - email
+                - senha
+              properties:
+                nome:
+                  type: string
+                email:
+                  type: string
+                senha:
+                  type: string
+
+        responses:
+            201: 
+              description: Usuário cadastrado com sucesso
+              schema:
+                id: Usuario
+                properties:
+                  nome:
+                    type: string
+                  email:
+                    type: string
+                  senha:
+                    type: string
+
+            400: 
+              description: Erro na requisição
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Erro na requisição. Verifique os dados enviados                
+            
+
+
+        """
         us = usuario_schema.UsuarioSchema()
         validate = us.validate(request.json)
         if validate:

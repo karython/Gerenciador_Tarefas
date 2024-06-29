@@ -22,6 +22,7 @@ class TarefaSchema(ma.SQLAlchemyAutoSchema):
     data_expiracao = fields.Date(required=True)
     projeto = fields.String(required=True)
     
+    #NOTE - Implementação de HATEOS
     _links = ma.Hyperlinks(
         {
             'get': ma.URLFor("tarefadetail", values=dict(id='<id>')),

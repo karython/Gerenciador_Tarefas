@@ -12,6 +12,33 @@ class ProjetoList(Resource):
     # funcao que ira chamar os metodos GET dos service
     # Listar todos os projetos
     def get (self):
+
+        """
+        Listagem de todos os projetos
+        ---
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+
+        responses:
+            200:
+              description: Lista de todos os projetos
+              schema:
+                id: Projeto
+                properties:
+                  projeto_id:
+                    type: integer
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+                  tarefas:
+                    type: string
+
+
+        """
         
         #projetos = projeto_service.listar_projeto()
         ps = projeto_schema.ProjetoSchema(many=True)
@@ -22,6 +49,48 @@ class ProjetoList(Resource):
     # funcao que irar chamar os metodos POST (SET) dos service
     # criar novo projeto
     def post(self):
+
+        """
+        Esta rota é responsavel por cadastrar um novo projeto
+        ---
+        parameters:
+          - in: body
+            name: Projeto
+            description: Criar novo projeto
+            schema:
+              type: object
+              required:
+                - nome
+                - descricao
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+
+        responses:
+            201: 
+              description: Projeto criado com sucesso
+              schema:
+                id: Projeto
+                properties:
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+
+            400: 
+              description: Erro na requisição
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Erro na requisição. Verifique os dados enviados                
+            
+
+
+        """
         ps = projeto_schema.ProjetoSchema()
         validate = ps.validate(request.json)
 
@@ -41,6 +110,38 @@ class ProjetoDetail(Resource):
 
     # Listar projetos por ID
     def get(self, id):
+
+        """
+        Retorna o projeto que possui o ID como parâmetro
+        ---
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: path
+            name: id
+            type: integer
+            required: true
+
+        responses:
+            200:
+              description: Projeto que possui o ID enviado
+              schema:
+                id: Projeto
+                properties:
+                  projeto_id:
+                    type: integer
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+
+            404: 
+              description: Projeto não encontrado
+
+
+        """
         projeto = projeto_service.listar_projeto_id(id)
         if projeto is None:
             return make_response(jsonify("projeto não encontrada"), 404)
@@ -50,6 +151,55 @@ class ProjetoDetail(Resource):
 
     # Editar projeto
     def put(self, id):
+
+        """
+        Retorna o projeto que possui o ID passado como parâmetro
+        ---
+        parameters:
+          - in: path
+            name: id
+            type: integer
+            required: true
+          - in: body
+            name: Projeto
+            description: Editar projeto
+            schema:
+              type: object
+              required:
+                - nome
+                - descricao
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+
+        responses:
+            200: 
+              description: Projeto editado com sucesso
+              schema:
+                id: Projeto
+                properties:
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+
+            400: 
+              description: Erro na requisição
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Erro na requisição. Verifique os dados enviados
+            
+            404: 
+              description: Projeto não encontrada
+        
+
+         
+        """
         projeto_bd = projeto_service.listar_projeto_id(id)
 
         # verificando se a projeto existe no banco
@@ -76,6 +226,22 @@ class ProjetoDetail(Resource):
 
     # Deletando projeto
     def delete(self, id):
+
+        """
+        Remove o projeto que possui o ID como parâmetro
+        ---
+        parameters:
+          - in: path
+            name: id
+            type: integer
+            required: true
+
+        responses:
+            204:
+              description: Projeto removido com sucesso
+            404: 
+              description: Projeto não encontrado
+        """
         projeto = projeto_service.listar_projeto_id(id)
         if projeto is None:
             return make_response(jsonify("projeto não encontrada"), 404)
