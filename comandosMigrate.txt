@@ -1,0 +1,20 @@
+** COMANDOS NO TERMINAL PARA MIGRATE **
+
+O que faz? ($env:FLASK_APP = "api.py")
+Esse comando define a variável de ambiente FLASK_APP no Windows PowerShell para indicar qual arquivo contém a aplicação Flask.
+
+Por que é necessário?
+O Flask usa essa variável para saber qual arquivo deve ser executado ao rodar os comandos flask db migrate e flask db upgrade.
+
+$env:FLASK_APP = "api.py"
+
+(flask db init)
+Cria um diretório chamado migrations/ no projeto, com arquivos para controlar as versões do banco de dados. So roda a primeira vez
+
+flask db init
+
+Cria um novo arquivo de migração dentro de migrations/versions/ com as alterações no modelo do banco de dados.
+flask db migrate
+
+Aplica as mudanças geradas pelo flask db migrate no banco de dados.
+flask db upgrade

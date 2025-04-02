@@ -16,6 +16,12 @@ class UsuarioSchema(ma.SQLAlchemyAutoSchema):
 
         model = usuario_model.Usuario
         # informações que serão renderizadas
+
+        
+        '''
+        Os fields no Marshmallow são utilizados para definir os tipos de dados que um schema deve aceitar e serializar.
+        Se um usuário enviar um JSON errado, o UsuarioSchema bloqueia automaticamente.
+        '''
         fields = ('id', 'nome', 'email', 'senha')
 
 

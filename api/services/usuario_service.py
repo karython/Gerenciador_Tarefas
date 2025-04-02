@@ -1,3 +1,4 @@
+from api.schemas.usuario_schema import UsuarioSchema
 from ..models import usuario_model
 from api import db
 
@@ -10,3 +11,8 @@ def cadastrar_usuario(usuario):
 
 def lista_usuario(email):
     return usuario_model.Usuario.query.filter_by(email=email).first()
+
+def listar_usuarios():
+    usuarios = usuario_model.Usuario.query.all()
+    schema = UsuarioSchema(many=True)  # Certifique-se de definir many=True
+    return schema.dump(usuarios)
